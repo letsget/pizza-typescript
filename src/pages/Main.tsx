@@ -1,24 +1,43 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Categories from "../components/Categories";
 import Sorting from "../components/Sorting";
 import Title from "../components/Title";
 import PizzaItem from "../components/PizzaItem";
+import { PizzaProps } from "../types";
 
-const pizzas = new Array(10).fill(<PizzaItem />);
-
-const items: string[] = [
-  "Все",
-  "Мясные",
-  "Вегитарианские",
-  "Гриль",
-  "Острые",
-  "Закрытые",
-];
+interface Props {
+  data: PizzaProps[];
+}
 
 const sortItems: string[] = ["популярности", "цене", "алфавиту"];
 
-const main: FC = () => {
+const Main: FC<Props> = () => {
+  const [data, setData] = useState<null | []>(null);
+
+  const fetchData = async () => {
+    try {
+      const result = await fetch("http://localhost:3000/db.json");
+      const response = await result.json();
+      setData(response.pizzas);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const items: string[] = [
+    "Все",
+    "Мясные",
+    "Вегитарианские",
+    "Гриль",
+    "Острые",
+    "Закрытые",
+  ];
+
   return (
     <>
       <div className="wrapper">
@@ -31,9 +50,30 @@ const main: FC = () => {
             </div>
             <Title />
             <div className="content__items">
-              {pizzas.map((pizza, index) => (
-                <PizzaItem key={index} />
-              ))}
+              {data &&
+                data.map(
+                  ({
+                    id = 0,
+                    imageUrl,
+                    name,
+                    types,
+                    sizes,
+                    price,
+                    category,
+                    rating,
+                  }: PizzaProps) => (
+                    <PizzaItem
+                      key={id}
+                      imageUrl={imageUrl}
+                      name={name}
+                      types={types}
+                      sizes={sizes}
+                      price={price}
+                      category={category}
+                      rating={rating}
+                    />
+                  )
+                )}
             </div>
           </div>
         </div>
@@ -42,4 +82,4 @@ const main: FC = () => {
   );
 };
 
-export default main;
+export default Main;

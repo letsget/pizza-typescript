@@ -28,12 +28,15 @@ const Sorting: FC<Props> = ({ sortItems }) => {
 
   useEffect(() => {
     document.body.addEventListener("click", handleOutsideClick);
+
+    return () => document.body.removeEventListener("click", handleOutsideClick);
   }, []);
 
   return (
     <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
+          className={visible ? "rotated" : ""}
           width="10"
           height="6"
           viewBox="0 0 10 6"
