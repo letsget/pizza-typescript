@@ -29,6 +29,9 @@ const Main: FC<Props> = () => {
     fetchData();
   }, []);
 
+  const doughTypes = ["тонкое", "традиционное"];
+  const availableSizes = [26, 30, 40];
+
   const items: string[] = [
     "Все",
     "Мясные",
@@ -53,7 +56,7 @@ const Main: FC<Props> = () => {
               {data &&
                 data.map(
                   ({
-                    id = 0,
+                    id,
                     imageUrl,
                     name,
                     types,
@@ -67,6 +70,8 @@ const Main: FC<Props> = () => {
                       imageUrl={imageUrl}
                       name={name}
                       types={types}
+                      doughTypes={doughTypes}
+                      availableSizes={availableSizes}
                       sizes={sizes}
                       price={price}
                       category={category}

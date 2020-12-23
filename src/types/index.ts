@@ -7,6 +7,8 @@ export interface PizzaProps {
   imageUrl: string;
   name: string;
   types: number[];
+  doughTypes: string[];
+  availableSizes: number[];
   sizes: number[];
   price: number;
   category: number;
