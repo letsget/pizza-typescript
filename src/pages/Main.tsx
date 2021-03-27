@@ -5,7 +5,12 @@ import Sorting from "../components/Sorting";
 import Title from "../components/Title";
 import PizzaItem from "../components/PizzaItem";
 import { PizzaProps } from "../types";
-import { getAllPizzas, getCurrentFilter, getFilters } from "../redux/selectors";
+import {
+  getAllPizzas,
+  getCurrentFilter,
+  getFilters,
+  pizzasToRender,
+} from "../redux/selectors";
 import { useDispatch } from "react-redux";
 import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
 import { connect } from "react-redux";
@@ -61,7 +66,7 @@ const Main: FC<Props> = ({ pizzas, filter, filters }) => {
               <Categories items={filters} onFilter={onFilter} filter={filter} />
               <Sorting sortItems={sortItems} />
             </div>
-            <Title />
+            <Title filter={filter} />
             <div className="content__items">
               {pizzas &&
                 pizzas.map(
@@ -99,7 +104,7 @@ const Main: FC<Props> = ({ pizzas, filter, filters }) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    pizzas: getAllPizzas(state),
+    pizzas: pizzasToRender(state),
     filter: getCurrentFilter(state),
     filters: getFilters(state),
   };

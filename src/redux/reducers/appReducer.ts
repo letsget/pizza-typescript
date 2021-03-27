@@ -3,7 +3,16 @@ import { LOAD_PIZZAS, SET_CURRENT_FILTER } from "../actions/app";
 const initialState = {
   pizzas: [],
   currentFilter: "Все",
-  filters: ["Все", "Мясные", "Вегитарианские", "Гриль", "Острые", "Закрытые"],
+  filters: [
+    "Все",
+    "Мясные",
+    "Вегитарианские",
+    "С курицей",
+    "С рыбой",
+    "Острые",
+  ],
+  sortingOptions: ["популярности", "цене", "алфавиту"],
+  currentSortingOption: "популярности",
 };
 
 const appReducer = (state = initialState, { type, payload }: any) => {
