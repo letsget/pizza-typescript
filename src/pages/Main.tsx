@@ -11,40 +11,33 @@ import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
 import { connect } from "react-redux";
 
 /*
-  0 Install and setup redux
-  1 load pizzas and put them in a redux state
-  2 Move filters to redux state
-  3 Add setActiveFilter and active filter to redux state and actions
-  4 add reselect to fetch the requird data from redux store
+  0 Install and setup redux                                                 [done]
+  1 load pizzas and put them in a redux state                               [done]
+  2 Move filters to redux state                                             [done]
+  3 Add setActiveFilter and active filter to redux state and actions        [done]
+  4 add reselect to fetch the requird data from redux store                 [done]
   5 write selectors and reselect for filtering/sorting
   6 add Cart state to redux store and add actions to add items to cart
 */
 
-// interface Props {
-//   data: PizzaProps[];
-// }
+interface Props {
+  pizzas: PizzaProps[];
+  filter: string;
+  filters: string[];
+}
 
 const sortItems: string[] = ["популярности", "цене", "алфавиту"];
 
-const Main: FC = (props) => {
-  console.log("пропсы с редакса", props);
+const Main: FC<Props> = ({ pizzas, filter, filters }) => {
+  console.log("pizzas", pizzas);
+  console.log("filters", filters);
   const dispatch = useDispatch();
-  const [data, setData] = useState<null | []>(null);
-
-  const fetchData = async () => {
-    try {
-      const result = await fetch("http://localhost:3000/db.json");
-      const response = await result.json();
-      setData(response.pizzas);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
-    fetchData();
     loadPizzasAsync(dispatch);
   }, []);
+
+  const onFilter = (name: string) => dispatch(setCurrentFilter(name));
 
   const doughTypes = ["тонкое", "традиционное"];
   const availableSizes = [26, 30, 40];
@@ -65,13 +58,13 @@ const Main: FC = (props) => {
         <div className="content">
           <div className="container">
             <div className="content__top">
-              <Categories items={items} />
+              <Categories items={filters} onFilter={onFilter} filter={filter} />
               <Sorting sortItems={sortItems} />
             </div>
             <Title />
             <div className="content__items">
-              {data &&
-                data.map(
+              {pizzas &&
+                pizzas.map(
                   ({
                     id,
                     imageUrl,

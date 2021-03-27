@@ -14,6 +14,7 @@ const appReducer = (state = initialState, { type, payload }: any) => {
         pizzas: payload,
       };
     case SET_CURRENT_FILTER:
+      console.log("filter from set", payload);
       return {
         ...state,
         currentFilter: payload,

@@ -2,21 +2,17 @@ import React, { FC, useState } from "react";
 
 interface Props {
   items: string[];
+  onFilter: Function;
+  filter: string;
 }
-const Categories: FC<Props> = ({ items }) => {
-  const [active, setActive] = useState(0);
-
-  const onSelect = (index: number) => {
-    setActive(index);
-  };
-
+const Categories: FC<Props> = ({ items, onFilter, filter }) => {
   return (
     <div className="categories">
       <ul>
-        {items.map((item: string, index: number) => (
+        {items.map((item: string) => (
           <li
-            className={active === index ? "active" : ""}
-            onClick={() => onSelect(index)}
+            className={filter === item ? "active" : ""}
+            onClick={() => onFilter(item)}
             key={item}
           >
             {item}

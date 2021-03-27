@@ -14,8 +14,9 @@ export const setCurrentFilter = (filter: string) => ({
 export const loadPizzasAsync = async (dispatch: Function) => {
   try {
     const result = await fetch("http://localhost:3000/db.json");
-    const response = await result.json();
-    dispatch(loadPizzas(response));
+    const { pizzas } = await result.json();
+    console.log("response", pizzas);
+    dispatch(loadPizzas(pizzas));
   } catch (err) {
     console.log(err?.message || err?.response || err);
   }
