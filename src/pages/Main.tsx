@@ -16,19 +16,20 @@ import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
 import { connect } from "react-redux";
 
 /*
-  0 Install and setup redux                                                 [done]
-  1 load pizzas and put them in a redux state                               [done]
-  2 Move filters to redux state                                             [done]
-  3 Add setActiveFilter and active filter to redux state and actions        [done]
-  4 add reselect to fetch the requird data from redux store                 [done]
+  0 Install and setup redux                                                 [✓]
+  1 load pizzas and put them in a redux state                               [✓]
+  2 Move filters to redux state                                             [✓]
+  3 Add setActiveFilter and active filter to redux state and actions        [✓]
+  4 add reselect to fetch the requird data from redux store                 [✓]
   5 write selectors and reselect for filtering/sorting
-  6 add Cart state to redux store and add actions to add items to cart
+  8 fix filtering options - create an object of filters in store            
+  7 add Cart state to redux store and add actions to add items to cart
 */
 
 interface Props {
   pizzas: PizzaProps[];
   filter: string;
-  filters: string[];
+  filters: any;
 }
 
 const sortItems: string[] = ["популярности", "цене", "алфавиту"];
@@ -46,15 +47,6 @@ const Main: FC<Props> = ({ pizzas, filter, filters }) => {
 
   const doughTypes = ["тонкое", "традиционное"];
   const availableSizes = [26, 30, 40];
-
-  const items: string[] = [
-    "Все",
-    "Мясные",
-    "Вегитарианские",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
 
   return (
     <>

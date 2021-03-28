@@ -27,7 +27,7 @@
       "types": [0, 1],
       "sizes": [26, 40],
       "price": 295,
-      "category": "c курицей",
+      "category": "с курицей",
       "rating": 4
     },
     {
@@ -37,7 +37,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 275,
-      "category": "c курицей",
+      "category": "с курицей",
       "rating": 2
     },
     {
@@ -107,7 +107,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 445,
-      "category": "c курицей",
+      "category": "с курицей",
       "rating": 7
     },
     {
@@ -117,7 +117,7 @@
       "types": [1],
       "sizes": [30, 40],
       "price": 445,
-      "category": "острая",
+      "category": "острые",
       "rating": 7
     },
     {
@@ -197,7 +197,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 305,
-      "category": "острая",
+      "category": "острые",
       "rating": 5
     }
   ]

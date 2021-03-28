@@ -11,6 +11,6 @@ export interface PizzaProps {
   availableSizes: number[];
   sizes: number[];
   price: number;
-  category: number;
+  category: string;
   rating: number;
 }

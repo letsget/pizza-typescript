@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 
 interface Props {
-  items: string[];
+  items: any;
   onFilter: Function;
   filter: string;
 }
@@ -9,13 +9,13 @@ const Categories: FC<Props> = ({ items, onFilter, filter }) => {
   return (
     <div className="categories">
       <ul>
-        {items.map((item: string) => (
+        {Object.entries(items).map(([key, current]: any[]) => (
           <li
-            className={filter === item ? "active" : ""}
-            onClick={() => onFilter(item)}
-            key={item}
+            className={filter === key ? "active" : ""}
+            onClick={() => onFilter(key)}
+            key={key}
           >
-            {item}
+            {current}
           </li>
         ))}
       </ul>
