@@ -6,10 +6,12 @@ import Title from "../components/Title";
 import PizzaItem from "../components/PizzaItem";
 import { PizzaProps } from "../types";
 import {
-  getAllPizzas,
   getCurrentFilter,
   getFilters,
   pizzasToRender,
+  getSortingOptions,
+  getCurrentSortingOption,
+  sortedPizzas,
 } from "../redux/selectors";
 import { useDispatch } from "react-redux";
 import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
@@ -22,7 +24,7 @@ import { connect } from "react-redux";
   3 Add setActiveFilter and active filter to redux state and actions        [✓]
   4 add reselect to fetch the requird data from redux store                 [✓]
   5 write selectors and reselect for filtering/sorting
-  8 fix filtering options - create an object of filters in store            
+  8 fix filtering options - create an object of filters in store            [✓]
   7 add Cart state to redux store and add actions to add items to cart
 */
 
@@ -30,13 +32,24 @@ interface Props {
   pizzas: PizzaProps[];
   filter: string;
   filters: any;
+  sortingOptions: {
+    [key: string]: string;
+  };
+  currentSortingOption: string;
+  sortedPizzas: PizzaProps;
 }
 
-const sortItems: string[] = ["популярности", "цене", "алфавиту"];
-
-const Main: FC<Props> = ({ pizzas, filter, filters }) => {
+const Main: FC<Props> = ({
+  pizzas,
+  filter,
+  filters,
+  sortingOptions,
+  currentSortingOption,
+  sortedPizzas,
+}) => {
   console.log("pizzas", pizzas);
-  console.log("filters", filters);
+  console.log("sorted", sortedPizzas);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,7 +69,10 @@ const Main: FC<Props> = ({ pizzas, filter, filters }) => {
           <div className="container">
             <div className="content__top">
               <Categories items={filters} onFilter={onFilter} filter={filter} />
-              <Sorting sortItems={sortItems} />
+              <Sorting
+                sortItems={sortingOptions}
+                currentSortingOption={currentSortingOption}
+              />
             </div>
             <Title filter={filter} />
             <div className="content__items">
@@ -97,8 +113,11 @@ const Main: FC<Props> = ({ pizzas, filter, filters }) => {
 const mapStateToProps = (state: any) => {
   return {
     pizzas: pizzasToRender(state),
+    sortedPizzas: sortedPizzas(state),
     filter: getCurrentFilter(state),
     filters: getFilters(state),
+    sortingOptions: getSortingOptions(state),
+    currentSortingOption: getCurrentSortingOption(state),
   };
 };
 

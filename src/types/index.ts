@@ -5,7 +5,7 @@ export interface CategoryProps {
 export interface PizzaProps {
   id?: number;
   imageUrl: string;
-  name: string;
+  name: string | number;
   types: number[];
   doughTypes: string[];
   availableSizes: number[];

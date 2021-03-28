@@ -1,5 +1,6 @@
 export const LOAD_PIZZAS = "LOAD_PIZZAS";
 export const SET_CURRENT_FILTER = "SET_CURRENT_FILTER";
+export const SET_CURRENT_SORTING_OPTION = "SET_CURRENT_SORTING_OPTION";
 
 export const loadPizzas = (pizzas: any) => ({
   type: LOAD_PIZZAS,
@@ -9,6 +10,11 @@ export const loadPizzas = (pizzas: any) => ({
 export const setCurrentFilter = (filter: string) => ({
   type: SET_CURRENT_FILTER,
   payload: filter,
+});
+
+export const setCurrentSortingOption = (option: string) => ({
+  type: SET_CURRENT_SORTING_OPTION,
+  payload: option,
 });
 
 export const loadPizzasAsync = async (dispatch: Function) => {

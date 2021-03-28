@@ -1,18 +1,25 @@
 import React, { FC, useState, useEffect, useRef } from "react";
+import { setCurrentSortingOption } from "../../redux/actions/app";
+import { useDispatch } from "react-redux";
 
 interface Props {
-  sortItems: string[];
+  sortItems: {
+    [key: string]: string;
+  };
+  currentSortingOption: string;
 }
 
-const Sorting: FC<Props> = ({ sortItems }) => {
+const Sorting: FC<Props> = ({ sortItems, currentSortingOption }) => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState<Boolean>(false);
   const sortRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [title, setTitle] = useState(sortItems[0]);
+  const [title, setTitle] = useState(sortItems[currentSortingOption]);
 
   const onSelect = (index: number, item: string) => {
     setActive(index);
     setTitle(item);
+    dispatch(setCurrentSortingOption(item));
     setVisible(false);
   };
 
@@ -55,13 +62,13 @@ const Sorting: FC<Props> = ({ sortItems }) => {
         <>
           <div className="sort__popup">
             <ul>
-              {sortItems.map((item: string, index: number) => (
+              {Object.entries(sortItems).map(([key, value], index) => (
                 <li
-                  className={active === index ? "active" : ""}
-                  onClick={() => onSelect(index, item)}
-                  key={item}
+                  className={currentSortingOption === key ? "active" : ""}
+                  onClick={() => onSelect(index, value)}
+                  key={key}
                 >
-                  {item}
+                  {value}
                 </li>
               ))}
             </ul>

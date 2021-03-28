@@ -1,4 +1,8 @@
-import { LOAD_PIZZAS, SET_CURRENT_FILTER } from "../actions/app";
+import {
+  LOAD_PIZZAS,
+  SET_CURRENT_FILTER,
+  SET_CURRENT_SORTING_OPTION,
+} from "../actions/app";
 import { PizzaProps } from "../../types";
 
 interface IActionTypes {
@@ -12,18 +16,11 @@ interface IInitialStateTypes {
     [key: string]: string;
   };
   currentFilter: string;
-  sortingOptions: string[];
+  sortingOptions: {
+    [key: string]: string;
+  };
   currentSortingOption: string;
 }
-
-// interface IFilters {
-//   all: string,
-//   meat: string,
-//   vegi: string,
-//   chicken: string,
-//   fish: string,
-//   spicy: string,
-// }
 
 const initialState: IInitialStateTypes = {
   pizzas: [],
@@ -36,8 +33,13 @@ const initialState: IInitialStateTypes = {
     spicy: "Острые",
   },
   currentFilter: "all",
-  sortingOptions: ["популярности", "цене", "алфавиту"],
-  currentSortingOption: "популярности",
+  sortingOptions: {
+    default: "популярности",
+    asc: "сначала дешевые",
+    desc: "сначала дорогие",
+    alph: "алфавиту",
+  },
+  currentSortingOption: "default",
 };
 
 const appReducer = (state = initialState, { type, payload }: IActionTypes) => {
@@ -52,6 +54,12 @@ const appReducer = (state = initialState, { type, payload }: IActionTypes) => {
       return {
         ...state,
         currentFilter: payload,
+      };
+    case SET_CURRENT_SORTING_OPTION:
+      console.log("sorting option ", payload);
+      return {
+        ...state,
+        currentSortingOption: payload,
       };
     default: {
       return {
