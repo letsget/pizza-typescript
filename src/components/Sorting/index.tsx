@@ -18,7 +18,7 @@ const Sorting: FC<Props> = ({ sortItems, currentSortingOption }) => {
 
   const onSelect = (index: number, item: string) => {
     setActive(index);
-    setTitle(item);
+    setTitle(sortItems[item]);
     dispatch(setCurrentSortingOption(item));
     setVisible(false);
   };
@@ -65,7 +65,7 @@ const Sorting: FC<Props> = ({ sortItems, currentSortingOption }) => {
               {Object.entries(sortItems).map(([key, value], index) => (
                 <li
                   className={currentSortingOption === key ? "active" : ""}
-                  onClick={() => onSelect(index, value)}
+                  onClick={() => onSelect(index, key)}
                   key={key}
                 >
                   {value}

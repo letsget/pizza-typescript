@@ -29,12 +29,16 @@ export const pizzasToRender = createSelector(
 export const sortedPizzas = createSelector(
   [getCurrentSortingOption, pizzasToRender],
   (option, pizzas) => {
-    if (option === "популярности") {
+    if (option === "default") {
       return pizzas;
-    } else if (option === "цене") {
+    } else if (option === "asc") {
       return [...pizzas].sort(
         (a: PizzaProps, b: PizzaProps) => a.price - b.price
       );
+    } else if (option === "desc") {
+      return [...pizzas].sort((a, b) => b.price - a.price);
+    } else if (option === "alph") {
+      return [...pizzas].sort((a, b) => (a.name > b.name ? 1 : -1));
     }
   }
 );

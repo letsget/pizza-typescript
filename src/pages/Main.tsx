@@ -112,12 +112,15 @@ const Main: FC<Props> = ({
 
 const mapStateToProps = (state: any) => {
   return {
-    pizzas: pizzasToRender(state),
     sortedPizzas: sortedPizzas(state),
     filter: getCurrentFilter(state),
     filters: getFilters(state),
     sortingOptions: getSortingOptions(state),
     currentSortingOption: getCurrentSortingOption(state),
+    pizzas:
+      getCurrentSortingOption(state) === "default"
+        ? pizzasToRender(state)
+        : sortedPizzas(state),
   };
 };
 
