@@ -1,0 +1,5 @@
+export const ADD_TO_CART = "ADD_TO_CART";
+export const HANDLE_INCREMENT = "HANDLE_INCREMENT";
+export const HANDLE_DECREMENT = "HANDLE_DECREMENT";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const CLEAR_CART = "CLEAR_CART";

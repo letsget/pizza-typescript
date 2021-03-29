@@ -17,7 +17,7 @@ export const setCurrentSortingOption = (option: string) => ({
   payload: option,
 });
 
-export const loadPizzasAsync = async (dispatch: Function) => {
+export const loadPizzasAsync = async (dispatch: Function): Promise<any> => {
   try {
     const result = await fetch("http://localhost:3000/db.json");
     const { pizzas } = await result.json();
