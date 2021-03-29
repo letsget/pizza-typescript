@@ -33,10 +33,10 @@ export const sortedPizzas = createSelector(
       return pizzas;
     } else if (option === "asc") {
       return [...pizzas].sort(
-        (a: PizzaProps, b: PizzaProps) => a.price - b.price
+        (a: PizzaProps, b: PizzaProps) => a.price[0] - b.price[0]
       );
     } else if (option === "desc") {
-      return [...pizzas].sort((a, b) => b.price - a.price);
+      return [...pizzas].sort((a, b) => b.price[0] - a.price[0]);
     } else if (option === "alph") {
       return [...pizzas].sort((a, b) => (a.name > b.name ? 1 : -1));
     }

@@ -23,9 +23,14 @@ import { connect } from "react-redux";
   2 Move filters to redux state                                             [✓]
   3 Add setActiveFilter and active filter to redux state and actions        [✓]
   4 add reselect to fetch the requird data from redux store                 [✓]
-  5 write selectors and reselect for filtering/sorting
+  5 write selectors and reselect for filtering/sorting                      [✓]  
   8 fix filtering options - create an object of filters in store            [✓]
-  7 add Cart state to redux store and add actions to add items to cart
+  
+  9 modify the json file to include object with prices based on types
+
+  10 add Cart state to redux store and add actions to add items to cart
+
+  11 use classNames library for generating classes dynamically
 */
 
 interface Props {
@@ -57,9 +62,6 @@ const Main: FC<Props> = ({
   }, []);
 
   const onFilter = (name: string) => dispatch(setCurrentFilter(name));
-
-  const doughTypes = ["тонкое", "традиционное"];
-  const availableSizes = [26, 30, 40];
 
   return (
     <>
@@ -93,8 +95,6 @@ const Main: FC<Props> = ({
                       imageUrl={imageUrl}
                       name={name}
                       types={types}
-                      doughTypes={doughTypes}
-                      availableSizes={availableSizes}
                       sizes={sizes}
                       price={price}
                       category={category}

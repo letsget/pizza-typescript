@@ -6,11 +6,9 @@ export interface PizzaProps {
   id?: number;
   imageUrl: string;
   name: string | number;
-  types: number[];
-  doughTypes: string[];
-  availableSizes: number[];
+  types: string[];
   sizes: number[];
-  price: number;
+  price: number[];
   category: string;
   rating: number;
 }

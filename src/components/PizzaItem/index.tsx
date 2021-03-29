@@ -2,26 +2,18 @@ import React, { FC, useState } from "react";
 import { PizzaProps } from "../../types";
 import classNames from "classnames";
 
-const PizzaItem: FC<PizzaProps> = ({
-  imageUrl,
-  name,
-  types,
-  doughTypes,
-  availableSizes,
-  sizes,
-  price,
-  category,
-  rating,
-}) => {
+const PizzaItem: FC<PizzaProps> = ({ imageUrl, name, types, sizes, price }) => {
   const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(0);
+  const [activeSize, setActiveSize] = useState(sizes[1]);
+  const [finalPrice, setFinalPrice] = useState(price[1]);
 
-  const onSelectType = (index: number) => {
-    setActiveType(index);
+  const onSelectType = (type: string) => {
+    setActiveType(type);
   };
 
-  const onSelectSize = (index: number) => {
-    setActiveSize(index);
+  const onSelectSize = (size: number, index: number) => {
+    setActiveSize(size);
+    setFinalPrice(price[index]);
   };
 
   return (
@@ -30,13 +22,12 @@ const PizzaItem: FC<PizzaProps> = ({
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {doughTypes.map((doughType: string | number, index: number) => (
+          {types.map((doughType: string, index: number) => (
             <li
               className={classNames({
-                active: activeType === index,
-                disabled: !types.includes(index),
+                active: doughType === activeType,
               })}
-              onClick={() => onSelectType(index)}
+              onClick={() => onSelectType(doughType)}
               key={index}
             >
               {doughType}
@@ -44,13 +35,12 @@ const PizzaItem: FC<PizzaProps> = ({
           ))}
         </ul>
         <ul>
-          {availableSizes.map((size: number, index: number) => (
+          {sizes.map((size: number, index: number) => (
             <li
-              key={size}
-              onClick={() => onSelectSize(index)}
+              key={index}
+              onClick={() => onSelectSize(size, index)}
               className={classNames({
-                active: activeSize === index,
-                disabled: !sizes.includes(size),
+                active: activeSize === size,
               })}
             >
               {size} см.
@@ -59,7 +49,7 @@ const PizzaItem: FC<PizzaProps> = ({
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price} ₽</div>
+        <div className="pizza-block__price">{finalPrice} ₽</div>
         <div className="button button--outline button--add">
           <svg
             width="12"
