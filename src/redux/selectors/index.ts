@@ -12,6 +12,10 @@ export const getCurrentFilter = ({ app }: any) => app.currentFilter;
 
 export const getFilters = ({ app }: any) => app.filters;
 
+export const getCart = ({ cart }: any) => cart.productsInCart;
+
+export const getOrderNumber = ({ cart }: any) => cart.productsInCart.length;
+
 export const pizzasToRender = createSelector(
   [getCurrentFilter, getAllPizzas, getFilters],
   (filter, pizzas, filters) => {

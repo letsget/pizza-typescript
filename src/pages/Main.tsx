@@ -4,7 +4,7 @@ import Categories from "../components/Categories";
 import Sorting from "../components/Sorting";
 import Title from "../components/Title";
 import PizzaItem from "../components/PizzaItem";
-import { PizzaProps } from "../types";
+import { PizzaProps, PizzaInCartProps } from "../types";
 import {
   getCurrentFilter,
   getFilters,
@@ -12,6 +12,8 @@ import {
   getSortingOptions,
   getCurrentSortingOption,
   sortedPizzas,
+  getCart,
+  getOrderNumber,
 } from "../redux/selectors";
 import { useDispatch } from "react-redux";
 import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
@@ -26,11 +28,20 @@ import { connect } from "react-redux";
   5 write selectors and reselect for filtering/sorting                      [✓]  
   8 fix filtering options - create an object of filters in store            [✓]
   
-  9 modify the json file to include object with prices based on types
+  9 modify the json file to include object with prices based on types       [✓]
 
-  10 add Cart state to redux store and add actions to add items to cart
+  10 add Cart state to redux store and add actions to add items to cart     [✓]
 
   11 use classNames library for generating classes dynamically
+  
+  12 Load products in cart when a user enters the cart page
+
+  13 add remove option
+
+  14 add clear cart option 
+
+
+
 */
 
 interface Props {
@@ -42,6 +53,8 @@ interface Props {
   };
   currentSortingOption: string;
   sortedPizzas: PizzaProps;
+  cart: PizzaInCartProps;
+  orderNumber: number;
 }
 
 const Main: FC<Props> = ({
@@ -51,9 +64,11 @@ const Main: FC<Props> = ({
   sortingOptions,
   currentSortingOption,
   sortedPizzas,
+  cart,
+  orderNumber,
 }) => {
-  console.log("pizzas", pizzas);
-  console.log("sorted", sortedPizzas);
+  console.log("cart", cart);
+  console.log("order number", orderNumber);
 
   const dispatch = useDispatch();
 
@@ -121,6 +136,8 @@ const mapStateToProps = (state: any) => {
       getCurrentSortingOption(state) === "default"
         ? pizzasToRender(state)
         : sortedPizzas(state),
+    cart: getCart(state),
+    orderNumber: getOrderNumber(state),
   };
 };
 

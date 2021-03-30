@@ -1,3 +1,4 @@
+import { PizzaProps } from "../../types";
 export const LOAD_PIZZAS = "LOAD_PIZZAS";
 export const SET_CURRENT_FILTER = "SET_CURRENT_FILTER";
 export const SET_CURRENT_SORTING_OPTION = "SET_CURRENT_SORTING_OPTION";
@@ -21,7 +22,6 @@ export const loadPizzasAsync = async (dispatch: Function): Promise<any> => {
   try {
     const result = await fetch("http://localhost:3000/db.json");
     const { pizzas } = await result.json();
-    console.log("response", pizzas);
     dispatch(loadPizzas(pizzas));
   } catch (err) {
     console.log(err?.message || err?.response || err);
