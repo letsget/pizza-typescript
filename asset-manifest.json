@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/pizza-typescript/static/css/main.5a9378d1.chunk.css",
+    "main.js": "/pizza-typescript/static/js/main.aa56e335.chunk.js",
+    "main.js.map": "/pizza-typescript/static/js/main.aa56e335.chunk.js.map",
+    "runtime-main.js": "/pizza-typescript/static/js/runtime-main.e87310b1.js",
+    "runtime-main.js.map": "/pizza-typescript/static/js/runtime-main.e87310b1.js.map",
+    "static/js/2.84ab587d.chunk.js": "/pizza-typescript/static/js/2.84ab587d.chunk.js",
+    "static/js/2.84ab587d.chunk.js.map": "/pizza-typescript/static/js/2.84ab587d.chunk.js.map",
+    "index.html": "/pizza-typescript/index.html",
+    "static/css/main.5a9378d1.chunk.css.map": "/pizza-typescript/static/css/main.5a9378d1.chunk.css.map",
+    "static/js/2.84ab587d.chunk.js.LICENSE.txt": "/pizza-typescript/static/js/2.84ab587d.chunk.js.LICENSE.txt",
+    "static/media/app.scss": "/pizza-typescript/static/media/ProximaNova-Regular.d97f8f32.eot",
+    "static/media/pizza-logo.56ac8703.svg": "/pizza-typescript/static/media/pizza-logo.56ac8703.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e87310b1.js",
+    "static/js/2.84ab587d.chunk.js",
+    "static/css/main.5a9378d1.chunk.css",
+    "static/js/main.aa56e335.chunk.js"
+  ]
+}
