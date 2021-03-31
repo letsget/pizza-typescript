@@ -18,7 +18,8 @@ export const getOrderNumber = ({ cart }: any) => cart.productsInCart.length;
 
 export const getOrderPrice = ({ cart }: any) =>
   cart.productsInCart.reduce(
-    (acc: number, curr: PizzaInCartProps) => acc + curr.pizzaPrice,
+    (acc: number, curr: PizzaInCartProps) =>
+      acc + curr.pizzaPrice * curr.quantity,
     0
   );
 

@@ -26,9 +26,11 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
 
   const onClear = () => dispatch(clearCart());
 
-  const onIncrement = (i: number) => dispatch(handleIncrement(i));
+  const onIncrement = (i: number, price: number) =>
+    dispatch(handleIncrement(i, price));
 
-  const onDecrement = (i: number) => dispatch(handleDecrement(i));
+  const onDecrement = (i: number, price: number) =>
+    dispatch(handleDecrement(i, price));
 
   return (
     <div className="wrapper">
@@ -121,7 +123,16 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
               {cart.length &&
                 cart.map(
                   (
-                    { id, imageUrl, name, type, size, quantity, pizzaPrice },
+                    {
+                      id,
+                      imageUrl,
+                      name,
+                      type,
+                      size,
+                      quantity,
+                      pizzaPrice,
+                      totalPrice,
+                    },
                     i
                   ) => (
                     <CartItem
@@ -132,6 +143,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
                       size={size}
                       quantity={quantity}
                       price={pizzaPrice}
+                      total={totalPrice}
                       index={i}
                       onRemove={onRemove}
                       onIncrement={onIncrement}

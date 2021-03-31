@@ -35,14 +35,14 @@ export const addExistingItem = (index: number, price: number) => ({
   payload: { index, price },
 });
 
-export const handleIncrement = (index: number) => ({
+export const handleIncrement = (index: number, price: number) => ({
   type: HANDLE_INCREMENT,
-  payload: index,
+  payload: { index, price },
 });
 
-export const handleDecrement = (index: number) => ({
+export const handleDecrement = (index: number, price: number) => ({
   type: HANDLE_DECREMENT,
-  payload: index,
+  payload: { index, price },
 });
 
 export const removeFromCart = (index: number) => ({

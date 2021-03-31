@@ -20,14 +20,6 @@ const PizzaItem: FC<PizzaProps> = ({ imageUrl, name, types, sizes, price }) => {
     setFinalPrice(price[index]);
   };
 
-  // id: Math.random(),
-  // imageUrl: "none",
-  // name: "test",
-  // type: payload.activeType,
-  // size: payload.activeSize,
-  // quantity: payload.count,
-  // pizzaPrice: payload.finalPrice,
-
   const onAdd = () => {
     const index = cart.findIndex(
       (item: PizzaInCartProps) =>

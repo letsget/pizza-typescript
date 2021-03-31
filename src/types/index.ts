@@ -21,4 +21,5 @@ export interface PizzaInCartProps {
   size: number;
   quantity: number;
   pizzaPrice: number;
+  totalPrice: number;
 }

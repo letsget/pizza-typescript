@@ -34,27 +34,34 @@ const cartReducer = (state = initialState, { type, payload }: any) => {
           size: payload.size,
           quantity: 1,
           pizzaPrice: payload.price,
+          totalPrice: payload.price,
         }),
       };
     case ADD_EXISTING_ITEM:
       const { index, price } = payload;
       const updated = [...state.productsInCart];
       updated[index].quantity = updated[index].quantity + 1;
-      updated[index].pizzaPrice = updated[index].pizzaPrice + price;
+      updated[index].totalPrice = updated[index].totalPrice + price;
       return {
         ...state,
         productsInCart: updated,
       };
     case HANDLE_INCREMENT:
+      console.log(payload);
       const incremented = [...state.productsInCart];
-      incremented[payload].quantity += 1;
+      incremented[payload.index].quantity += 1;
+      incremented[payload.index].totalPrice += payload.price;
       return {
         ...state,
         productsInCart: incremented,
       };
     case HANDLE_DECREMENT:
+      console.log(payload);
       const decremented = [...state.productsInCart];
-      decremented[payload].quantity > 1 && (decremented[payload].quantity -= 1);
+      if (decremented[payload.index].quantity > 1) {
+        decremented[payload.index].quantity -= 1;
+        decremented[payload.index].totalPrice -= payload.price;
+      }
       return {
         ...state,
         productsInCart: decremented,
