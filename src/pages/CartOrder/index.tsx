@@ -1,20 +1,26 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import HeaderCart from "../../components/HeaderCart";
-import { useSelector } from "react-redux";
 import Logo from "../../components/Logo";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { removeFromCart, clearCart } from "../../redux/actions/cart";
 import { PizzaInCartProps } from "../../types";
-import { getCart, getOrderNumber } from "../../redux/selectors";
+import { getCart, getOrderNumber, getOrderPrice } from "../../redux/selectors";
 import CartItem from "../../components/CartItem";
 
 interface Props {
   cart: PizzaInCartProps[];
   orderNumber: number;
+  orderPrice: number;
 }
 
-const CartOrder: FC<Props> = ({ cart, orderNumber }) => {
-  console.log(cart, orderNumber);
+const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
+  const dispatch = useDispatch();
+
+  const onRemove = (i: number) => dispatch(removeFromCart(i));
+
+  const onClear = () => dispatch(clearCart());
+
   return (
     <div className="wrapper">
       <div className="header">
@@ -22,7 +28,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber }) => {
           <Link to="/">
             <Logo />
           </Link>
-          <HeaderCart />
+          <HeaderCart orderPrice={orderPrice} />
         </div>
       </div>
       <div className="content">
@@ -61,7 +67,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber }) => {
                 </svg>
                 Корзина
               </h2>
-              <div className="cart__clear">
+              <div onClick={onClear} className="cart__clear">
                 <svg
                   width="20"
                   height="20"
@@ -105,15 +111,10 @@ const CartOrder: FC<Props> = ({ cart, orderNumber }) => {
             <div className="content__items">
               {cart.length &&
                 cart.map(
-                  ({
-                    id,
-                    imageUrl,
-                    name,
-                    type,
-                    size,
-                    quantity,
-                    pizzaPrice,
-                  }) => (
+                  (
+                    { id, imageUrl, name, type, size, quantity, pizzaPrice },
+                    i
+                  ) => (
                     <CartItem
                       key={id}
                       path={imageUrl}
@@ -122,6 +123,8 @@ const CartOrder: FC<Props> = ({ cart, orderNumber }) => {
                       size={size}
                       quantity={quantity}
                       price={pizzaPrice}
+                      index={i}
+                      onRemove={onRemove}
                     />
                   )
                 )}
@@ -134,12 +137,12 @@ const CartOrder: FC<Props> = ({ cart, orderNumber }) => {
                 </span>
                 <span>
                   {" "}
-                  Сумма заказа: <b>900 ₽</b>{" "}
+                  Сумма заказа: <b>{orderPrice} ₽</b>{" "}
                 </span>
               </div>
               <div className="cart__bottom-buttons">
-                <a
-                  href="/"
+                <Link
+                  to="/"
                   className="button button--outline button--add go-back-btn"
                 >
                   <svg
@@ -159,7 +162,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber }) => {
                   </svg>
 
                   <span>Вернуться назад</span>
-                </a>
+                </Link>
                 <div className="button pay-btn">
                   <span>Оплатить сейчас</span>
                 </div>
@@ -176,6 +179,7 @@ const mapStateToProps = (state: any) => {
   return {
     cart: getCart(state),
     orderNumber: getOrderNumber(state),
+    orderPrice: getOrderPrice(state),
   };
 };
 

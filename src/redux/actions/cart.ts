@@ -1,6 +1,7 @@
 import { PizzaProps, PizzaInCartProps } from "../../types";
 export const LOAD_CART_PRODUCTS = "LOAD_CART_PRODUCTS";
 export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_EXISTING_ITEM = "ADD_EXISTING_ITEM";
 export const HANDLE_INCREMENT = "HANDLE_INCREMENT";
 export const HANDLE_DECREMENT = "HANDLE_DECREMENT";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
@@ -21,31 +22,34 @@ export const loadCardProducts = (cart: PizzaInCartProps) => ({
 export const addToCart = (
   type: string,
   size: number,
-  quantity: number,
   price: number,
   img: string,
   name: string
 ) => ({
   type: ADD_TO_CART,
-  payload: { type, size, quantity, price, img, name },
+  payload: { type, size, price, img, name },
+});
+
+export const addExistingItem = (index: number, price: number) => ({
+  type: ADD_EXISTING_ITEM,
+  payload: { index, price },
 });
 
 export const handleIncrement = (quantity: number) => ({
-  type: ADD_TO_CART,
+  type: HANDLE_INCREMENT,
   payload: quantity,
 });
 
 export const handleDecrement = (quantity: number) => ({
-  type: ADD_TO_CART,
+  type: HANDLE_DECREMENT,
   payload: quantity,
 });
 
-export const removeFromCart = (item: PizzaProps) => ({
-  type: ADD_TO_CART,
-  payload: item,
+export const removeFromCart = (index: number) => ({
+  type: REMOVE_FROM_CART,
+  payload: index,
 });
 
-export const clearCart = (cart: PizzaProps[]) => ({
-  type: ADD_TO_CART,
-  payload: cart,
+export const clearCart = () => ({
+  type: CLEAR_CART,
 });

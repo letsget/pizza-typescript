@@ -2,12 +2,16 @@ import React, { FC } from "react";
 import Logo from "../Logo";
 import HeaderCart from "../HeaderCart";
 
-const Header: FC = () => {
+interface Props {
+  orderPrice: number;
+}
+
+const Header: FC<Props> = ({ orderPrice }) => {
   return (
     <div className="header">
       <div className="container">
         <Logo />
-        <HeaderCart />
+        <HeaderCart orderPrice={orderPrice} />
       </div>
     </div>
   );

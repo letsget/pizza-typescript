@@ -1,5 +1,10 @@
 import { PizzaInCartProps } from "../../types";
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../actions/cart";
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CLEAR_CART,
+  ADD_EXISTING_ITEM,
+} from "../actions/cart";
 
 interface IInitialStateTypes {
   productsInCart: PizzaInCartProps[];
@@ -25,9 +30,18 @@ const cartReducer = (state = initialState, { type, payload }: any) => {
           name: payload.name,
           type: payload.type,
           size: payload.size,
-          quantity: payload.quantity,
+          quantity: 1,
           pizzaPrice: payload.price,
         }),
+      };
+    case ADD_EXISTING_ITEM:
+      const { index, price } = payload;
+      const updated = [...state.productsInCart];
+      updated[index].quantity = updated[index].quantity + 1;
+      updated[index].pizzaPrice = updated[index].pizzaPrice + price;
+      return {
+        ...state,
+        productsInCart: updated,
       };
     case REMOVE_FROM_CART:
       const copy = [...state.productsInCart];

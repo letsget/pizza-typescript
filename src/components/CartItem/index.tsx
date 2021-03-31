@@ -7,6 +7,8 @@ interface Props {
   size: number;
   quantity: number;
   price: number;
+  index: number;
+  onRemove: Function;
 }
 
 const CartItem: FC<Props> = ({
@@ -16,6 +18,8 @@ const CartItem: FC<Props> = ({
   size,
   quantity,
   price,
+  index,
+  onRemove,
 }) => {
   return (
     <div className="cart__item">
@@ -70,7 +74,7 @@ const CartItem: FC<Props> = ({
       <div className="cart__item-price">
         <b>{price}</b>
       </div>
-      <div className="cart__item-remove">
+      <div onClick={() => onRemove(index)} className="cart__item-remove">
         <div className="button button--outline button--circle">
           <svg
             width="10"

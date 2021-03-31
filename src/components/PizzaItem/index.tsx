@@ -1,15 +1,15 @@
 import React, { FC, useState } from "react";
-import { addToCart } from "../../redux/actions/cart";
+import { addToCart, addExistingItem } from "../../redux/actions/cart";
 import { PizzaProps, PizzaInCartProps } from "../../types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
 const PizzaItem: FC<PizzaProps> = ({ imageUrl, name, types, sizes, price }) => {
+  const cart = useSelector(({ cart }: any) => cart.productsInCart);
   const dispatch = useDispatch();
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[1]);
   const [finalPrice, setFinalPrice] = useState(price[1]);
-  const [count, setCount] = useState(0);
 
   const onSelectType = (type: string) => {
     setActiveType(type);
@@ -29,10 +29,17 @@ const PizzaItem: FC<PizzaProps> = ({ imageUrl, name, types, sizes, price }) => {
   // pizzaPrice: payload.finalPrice,
 
   const onAdd = () => {
-    setCount((prev) => prev + 1);
-    dispatch(
-      addToCart(activeType, activeSize, count, finalPrice, imageUrl, name)
+    const index = cart.findIndex(
+      (item: PizzaInCartProps) =>
+        item.name === name &&
+        item.type === activeType &&
+        item.size === activeSize
     );
+    if (index >= 0) {
+      dispatch(addExistingItem(index, finalPrice));
+    } else {
+      dispatch(addToCart(activeType, activeSize, finalPrice, imageUrl, name));
+    }
   };
 
   return (
@@ -83,7 +90,6 @@ const PizzaItem: FC<PizzaProps> = ({ imageUrl, name, types, sizes, price }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>{count}</i>
         </div>
       </div>
     </div>

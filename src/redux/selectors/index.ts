@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { PizzaProps } from "../../types";
+import { PizzaProps, PizzaInCartProps } from "../../types";
 
 export const getSortingOptions = ({ app }: any) => app.sortingOptions;
 
@@ -15,6 +15,12 @@ export const getFilters = ({ app }: any) => app.filters;
 export const getCart = ({ cart }: any) => cart.productsInCart;
 
 export const getOrderNumber = ({ cart }: any) => cart.productsInCart.length;
+
+export const getOrderPrice = ({ cart }: any) =>
+  cart.productsInCart.reduce(
+    (acc: number, curr: PizzaInCartProps) => acc + curr.pizzaPrice,
+    0
+  );
 
 export const pizzasToRender = createSelector(
   [getCurrentFilter, getAllPizzas, getFilters],

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const HeaderCart = () => {
+interface Props {
+  orderPrice: number;
+}
+
+const HeaderCart: FC<Props> = ({ orderPrice }) => {
   const orderNumber = useSelector(
     ({ cart: { productsInCart } }: any) => productsInCart.length
   );
-  console.log("headerCart", orderNumber);
   return (
     <div className="header__cart">
       <Link to="/cart" className="button button--cart">
-        <span>520 ₽</span>
+        <span>{orderPrice} ₽</span>
         <div className="button__delimiter"></div>
         <svg
           width="18"

@@ -14,34 +14,32 @@ import {
   sortedPizzas,
   getCart,
   getOrderNumber,
+  getOrderPrice,
 } from "../redux/selectors";
 import { useDispatch } from "react-redux";
 import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
 import { connect } from "react-redux";
 
 /*
-  0 Install and setup redux                                                 [✓]
-  1 load pizzas and put them in a redux state                               [✓]
-  2 Move filters to redux state                                             [✓]
-  3 Add setActiveFilter and active filter to redux state and actions        [✓]
-  4 add reselect to fetch the requird data from redux store                 [✓]
-  5 write selectors and reselect for filtering/sorting                      [✓]  
-  8 fix filtering options - create an object of filters in store            [✓]
+   Install and setup redux                                                 [✓]
+   load pizzas and put them in a redux state                               [✓]
+   Move filters to redux state                                             [✓]
+   Add setActiveFilter and active filter to redux state and actions        [✓]
+   add reselect to fetch the requird data from redux store                 [✓]
+   write selectors and reselect for filtering/sorting                      [✓]  
+   fix filtering options - create an object of filters in store            [✓]
   
-  9 modify the json file to include object with prices based on types       [✓]
+   modify the json file to include object with prices based on types       [✓]
 
-  10 add Cart state to redux store and add actions to add items to cart     [✓]
+   add Cart state to redux store and add actions to add items to cart      [✓]
 
-  11 use classNames library for generating classes dynamically
+   use classNames library for generating classes dynamically
   
-  12 Load products in cart when a user enters the cart page
+   Load products in cart when a user enters the cart page
 
-  13 add remove option
+   add remove option
 
-  14 add clear cart option 
-
-
-
+   add clear cart option 
 */
 
 interface Props {
@@ -55,6 +53,7 @@ interface Props {
   sortedPizzas: PizzaProps;
   cart: PizzaInCartProps;
   orderNumber: number;
+  orderPrice: number;
 }
 
 const Main: FC<Props> = ({
@@ -63,9 +62,9 @@ const Main: FC<Props> = ({
   filters,
   sortingOptions,
   currentSortingOption,
-  sortedPizzas,
   cart,
   orderNumber,
+  orderPrice,
 }) => {
   console.log("cart", cart);
   console.log("order number", orderNumber);
@@ -81,7 +80,7 @@ const Main: FC<Props> = ({
   return (
     <>
       <div className="wrapper">
-        <Header />
+        <Header orderPrice={orderPrice} />
         <div className="content">
           <div className="container">
             <div className="content__top">
@@ -95,16 +94,19 @@ const Main: FC<Props> = ({
             <div className="content__items">
               {pizzas &&
                 pizzas.map(
-                  ({
-                    id,
-                    imageUrl,
-                    name,
-                    types,
-                    sizes,
-                    price,
-                    category,
-                    rating,
-                  }: PizzaProps) => (
+                  (
+                    {
+                      id,
+                      imageUrl,
+                      name,
+                      types,
+                      sizes,
+                      price,
+                      category,
+                      rating,
+                    }: PizzaProps,
+                    index: number
+                  ) => (
                     <PizzaItem
                       key={id}
                       imageUrl={imageUrl}
@@ -138,6 +140,7 @@ const mapStateToProps = (state: any) => {
         : sortedPizzas(state),
     cart: getCart(state),
     orderNumber: getOrderNumber(state),
+    orderPrice: getOrderPrice(state),
   };
 };
 
