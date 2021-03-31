@@ -9,6 +9,8 @@ interface Props {
   price: number;
   index: number;
   onRemove: Function;
+  onIncrement: Function;
+  onDecrement: Function;
 }
 
 const CartItem: FC<Props> = ({
@@ -20,6 +22,8 @@ const CartItem: FC<Props> = ({
   price,
   index,
   onRemove,
+  onIncrement,
+  onDecrement,
 }) => {
   return (
     <div className="cart__item">
@@ -33,7 +37,10 @@ const CartItem: FC<Props> = ({
         </p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          onClick={() => onDecrement(index)}
+          className="button button--outline button--circle cart__item-count-minus"
+        >
           <svg
             width="10"
             height="10"
@@ -52,7 +59,10 @@ const CartItem: FC<Props> = ({
           </svg>
         </div>
         <b>{quantity}</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <div
+          onClick={() => onIncrement(index)}
+          className="button button--outline button--circle cart__item-count-plus"
+        >
           <svg
             width="10"
             height="10"

@@ -4,6 +4,8 @@ import {
   REMOVE_FROM_CART,
   CLEAR_CART,
   ADD_EXISTING_ITEM,
+  HANDLE_INCREMENT,
+  HANDLE_DECREMENT,
 } from "../actions/cart";
 
 interface IInitialStateTypes {
@@ -42,6 +44,20 @@ const cartReducer = (state = initialState, { type, payload }: any) => {
       return {
         ...state,
         productsInCart: updated,
+      };
+    case HANDLE_INCREMENT:
+      const incremented = [...state.productsInCart];
+      incremented[payload].quantity += 1;
+      return {
+        ...state,
+        productsInCart: incremented,
+      };
+    case HANDLE_DECREMENT:
+      const decremented = [...state.productsInCart];
+      decremented[payload].quantity > 1 && (decremented[payload].quantity -= 1);
+      return {
+        ...state,
+        productsInCart: decremented,
       };
     case REMOVE_FROM_CART:
       const copy = [...state.productsInCart];

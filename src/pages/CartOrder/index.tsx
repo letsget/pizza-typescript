@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import HeaderCart from "../../components/HeaderCart";
 import Logo from "../../components/Logo";
 import { connect, useDispatch } from "react-redux";
-import { removeFromCart, clearCart } from "../../redux/actions/cart";
+import {
+  removeFromCart,
+  clearCart,
+  handleIncrement,
+  handleDecrement,
+} from "../../redux/actions/cart";
 import { PizzaInCartProps } from "../../types";
 import { getCart, getOrderNumber, getOrderPrice } from "../../redux/selectors";
 import CartItem from "../../components/CartItem";
@@ -20,6 +25,10 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
   const onRemove = (i: number) => dispatch(removeFromCart(i));
 
   const onClear = () => dispatch(clearCart());
+
+  const onIncrement = (i: number) => dispatch(handleIncrement(i));
+
+  const onDecrement = (i: number) => dispatch(handleDecrement(i));
 
   return (
     <div className="wrapper">
@@ -125,6 +134,8 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
                       price={pizzaPrice}
                       index={i}
                       onRemove={onRemove}
+                      onIncrement={onIncrement}
+                      onDecrement={onDecrement}
                     />
                   )
                 )}
