@@ -4,5 +4,6 @@
 
 ## What I used:
 
-Redux/Reselect for structuring selectors
-Typescript
+- Redux/Reselect for structuring selectors
+- Typescript
+- Hooks for storing/managing data locally
