@@ -9,10 +9,12 @@ const CartEmpty = () => {
     <div className="wrapper">
       <div className="header">
         <div className="container">
-          <Logo />
+          <Link to="./">
+            <Logo />
+          </Link>
           <div className="header__cart">
             <div className="button button--cart">
-              <span>520 ₽</span>
+              <span>0 ₽</span>
               <div className="button__delimiter" />
               <svg
                 width="18"
@@ -43,7 +45,7 @@ const CartEmpty = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>3</span>
+              <span></span>
             </div>
           </div>
         </div>
