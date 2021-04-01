@@ -35,11 +35,16 @@ import { connect } from "react-redux";
 
    use classNames library for generating classes dynamically
   
-   Load products in cart when a user enters the cart page
+   Load products in cart when a user enters the cart page                  [✓]
 
-   add remove option
+   add remove option                                                       [✓]
 
-   add clear cart option 
+   add clear cart option                                                   [✓]
+
+   use dynamic rendering and redirect user to empty cart page if there
+   are no products in the cart
+
+   add increment/decrement products in cart property in cart
 */
 
 interface Props {

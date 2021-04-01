@@ -10,7 +10,7 @@ const Router = () => {
 
   return (
     <Switch>
-      <Route path="/" component={Main} exact />
+      <Route path="/pizza-typescript" component={Main} exact />
       {cart.length ? (
         <Route path="/cart" component={CartOrder} exact />
       ) : (

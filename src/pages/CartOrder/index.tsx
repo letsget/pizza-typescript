@@ -36,7 +36,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
     <div className="wrapper">
       <div className="header">
         <div className="container">
-          <Link to="/">
+          <Link to="/pizza-typescript">
             <Logo />
           </Link>
           <HeaderCart orderPrice={orderPrice} />
@@ -165,7 +165,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
               </div>
               <div className="cart__bottom-buttons">
                 <Link
-                  to="/"
+                  to="/pizza-typescript"
                   className="button button--outline button--add go-back-btn"
                 >
                   <svg
