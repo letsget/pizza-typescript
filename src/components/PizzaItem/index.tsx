@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { PizzaProps } from "../../types";
 import PizzaOrderPopup from "../PizzaOrderPopup";
+import Portal from "../Portal";
 
 const PizzaItem: FC<PizzaProps> = ({
   imageUrl,
@@ -13,6 +14,7 @@ const PizzaItem: FC<PizzaProps> = ({
   const [visible, setVisible] = useState(false);
 
   const onPopupDisplay = () => setVisible(true);
+  const onPopupClose = () => setVisible(false);
 
   return (
     <div className="pizza-block">
@@ -28,6 +30,7 @@ const PizzaItem: FC<PizzaProps> = ({
             sizes={sizes}
             price={price}
             extras={extras}
+            onPopupClose={onPopupClose}
           />
         )}
         <div

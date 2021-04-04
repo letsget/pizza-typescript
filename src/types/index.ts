@@ -29,6 +29,7 @@ export interface PizzaPopupProps {
   extras: {
     [key: string]: number;
   };
+  onPopupClose: any;
 }
 
 export interface PizzaInCartProps {
