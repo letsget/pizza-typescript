@@ -4,6 +4,8 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_EXISTING_ITEM = "ADD_EXISTING_ITEM";
 export const HANDLE_INCREMENT = "HANDLE_INCREMENT";
 export const HANDLE_DECREMENT = "HANDLE_DECREMENT";
+export const GET_ORDER_PRICE = "GET_ORDER_PRICE";
+export const GET_ORDER_LENGTH = "GET_ORDER_LENGTH";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const CLEAR_CART = "CLEAR_CART";
 // id: Math.random(),
@@ -14,7 +16,7 @@ export const CLEAR_CART = "CLEAR_CART";
 // quantity: payload.count,
 // pizzaPrice: payload.finalPrice,
 
-export const loadCardProducts = (cart: PizzaInCartProps) => ({
+export const loadCartProducts = (cart: PizzaInCartProps[]) => ({
   type: LOAD_CART_PRODUCTS,
   payload: cart,
 });
@@ -43,6 +45,16 @@ export const handleIncrement = (index: number, price: number) => ({
 export const handleDecrement = (index: number, price: number) => ({
   type: HANDLE_DECREMENT,
   payload: { index, price },
+});
+
+export const getOrderPrice = (totalPrice: number) => ({
+  type: GET_ORDER_PRICE,
+  payload: totalPrice,
+});
+
+export const getOrderLength = (len: number) => ({
+  type: GET_ORDER_LENGTH,
+  payload: len,
 });
 
 export const removeFromCart = (index: number) => ({

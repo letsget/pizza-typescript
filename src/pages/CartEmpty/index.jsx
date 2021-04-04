@@ -9,7 +9,7 @@ const CartEmpty = () => {
     <div className="wrapper">
       <div className="header">
         <div className="container">
-          <Link to="./pizza-typescript">
+          <Link to="/">
             <Logo />
           </Link>
           <div className="header__cart">
@@ -62,7 +62,7 @@ const CartEmpty = () => {
               Для того, чтобы заказать пиццу, перейди на главную страницу.
             </p>
             <img src={emptyCart} alt="Empty cart" />
-            <Link to="/pizza-typescript" className="button button--black">
+            <Link to="/" className="button button--black">
               Вернуться назад
             </Link>
           </div>

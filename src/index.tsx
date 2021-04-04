@@ -9,12 +9,12 @@ import { Router } from "react-router-dom";
 import { history } from "./app/history";
 
 ReactDOM.render(
-  <Router history={history}>
-    <Provider store={store}>
+  <Provider store={store}>
+    <Router history={history}>
       <PersistGate persistor={persistor}>
         <App />
       </PersistGate>
-    </Provider>
-  </Router>,
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );

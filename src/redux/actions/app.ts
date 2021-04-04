@@ -21,7 +21,7 @@ export const setCurrentSortingOption = (option: string) => ({
 export const loadPizzasAsync = async (dispatch: Function): Promise<any> => {
   try {
     const result = await fetch(
-      "https://letsget.github.io/pizza-typescript/db.json"
+      "http://localhost:3000/pizza-typescript/db.json"
     );
     const { pizzas } = await result.json();
     dispatch(loadPizzas(pizzas));
@@ -29,3 +29,5 @@ export const loadPizzasAsync = async (dispatch: Function): Promise<any> => {
     console.log(err?.message || err?.response || err);
   }
 };
+
+// http://localhost:3000/pizza-typescript/db.json

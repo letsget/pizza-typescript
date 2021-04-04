@@ -1,74 +1,39 @@
 import React, { FC, useState } from "react";
-import { addToCart, addExistingItem } from "../../redux/actions/cart";
-import { PizzaProps, PizzaInCartProps } from "../../types";
-import { useDispatch, useSelector } from "react-redux";
-import classNames from "classnames";
+import { PizzaProps } from "../../types";
+import PizzaOrderPopup from "../PizzaOrderPopup";
 
-const PizzaItem: FC<PizzaProps> = ({ imageUrl, name, types, sizes, price }) => {
-  const cart = useSelector(({ cart }: any) => cart.productsInCart);
-  const dispatch = useDispatch();
-  const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(sizes[1]);
-  const [finalPrice, setFinalPrice] = useState(price[1]);
+const PizzaItem: FC<PizzaProps> = ({
+  imageUrl,
+  name,
+  types,
+  sizes,
+  price,
+  extras,
+}) => {
+  const [visible, setVisible] = useState(false);
 
-  const onSelectType = (type: string) => {
-    setActiveType(type);
-  };
-
-  const onSelectSize = (size: number, index: number) => {
-    setActiveSize(size);
-    setFinalPrice(price[index]);
-  };
-
-  const onAdd = () => {
-    const index = cart.findIndex(
-      (item: PizzaInCartProps) =>
-        item.name === name &&
-        item.type === activeType &&
-        item.size === activeSize
-    );
-    if (index >= 0) {
-      dispatch(addExistingItem(index, finalPrice));
-    } else {
-      dispatch(addToCart(activeType, activeSize, finalPrice, imageUrl, name));
-    }
-  };
+  const onPopupDisplay = () => setVisible(true);
 
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
-      <div className="pizza-block__selector">
-        <ul>
-          {types.map((doughType: string, index: number) => (
-            <li
-              className={classNames({
-                active: doughType === activeType,
-              })}
-              onClick={() => onSelectType(doughType)}
-              key={index}
-            >
-              {doughType}
-            </li>
-          ))}
-        </ul>
-        <ul>
-          {sizes.map((size: number, index: number) => (
-            <li
-              key={index}
-              onClick={() => onSelectSize(size, index)}
-              className={classNames({
-                active: activeSize === size,
-              })}
-            >
-              {size} см.
-            </li>
-          ))}
-        </ul>
-      </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">{finalPrice} ₽</div>
-        <div onClick={onAdd} className="button button--outline button--add">
+        <div className="pizza-block__price"> от {price[0]} ₽</div>
+        {visible && (
+          <PizzaOrderPopup
+            imageUrl={imageUrl}
+            name={name}
+            types={types}
+            sizes={sizes}
+            price={price}
+            extras={extras}
+          />
+        )}
+        <div
+          onClick={onPopupDisplay}
+          className="button button--outline button--add"
+        >
           <svg
             width="12"
             height="12"
@@ -81,7 +46,7 @@ const PizzaItem: FC<PizzaProps> = ({ imageUrl, name, types, sizes, price }) => {
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
+          <span>Выбрать</span>
         </div>
       </div>
     </div>

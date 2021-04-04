@@ -14,7 +14,7 @@ import {
   sortedPizzas,
   getCart,
   getOrderNumber,
-  getOrderPrice,
+  getTotalOrderPrice,
 } from "../redux/selectors";
 import { useDispatch } from "react-redux";
 import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
@@ -41,10 +41,10 @@ import { connect } from "react-redux";
 
    add clear cart option                                                   [✓]
 
-   use dynamic rendering and redirect user to empty cart page if there
+   use dynamic rendering and redirect user to empty cart page if there     [✓]
    are no products in the cart
 
-   add increment/decrement products in cart property in cart
+   add increment/decrement products in cart property in cart               [✓]
 */
 
 interface Props {
@@ -71,14 +71,13 @@ const Main: FC<Props> = ({
   orderNumber,
   orderPrice,
 }) => {
-  console.log("cart", cart);
-  console.log("order number", orderNumber);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     loadPizzasAsync(dispatch);
   }, []);
+
+  console.log("pizzas", pizzas);
 
   const onFilter = (name: string) => dispatch(setCurrentFilter(name));
 
@@ -109,6 +108,7 @@ const Main: FC<Props> = ({
                       price,
                       category,
                       rating,
+                      extras,
                     }: PizzaProps,
                     index: number
                   ) => (
@@ -121,6 +121,9 @@ const Main: FC<Props> = ({
                       price={price}
                       category={category}
                       rating={rating}
+                      extras={extras}
+                      orderNumber={orderNumber}
+                      orderPrice={orderPrice}
                     />
                   )
                 )}
@@ -145,7 +148,7 @@ const mapStateToProps = (state: any) => {
         : sortedPizzas(state),
     cart: getCart(state),
     orderNumber: getOrderNumber(state),
-    orderPrice: getOrderPrice(state),
+    orderPrice: getTotalOrderPrice(state),
   };
 };
 
