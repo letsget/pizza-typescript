@@ -23,15 +23,17 @@ const PizzaItem: FC<PizzaProps> = ({
       <div className="pizza-block__bottom">
         <div className="pizza-block__price"> от {price[0]} ₽</div>
         {visible && (
-          <PizzaOrderPopup
-            imageUrl={imageUrl}
-            name={name}
-            types={types}
-            sizes={sizes}
-            price={price}
-            extras={extras}
-            onPopupClose={onPopupClose}
-          />
+          <Portal>
+            <PizzaOrderPopup
+              imageUrl={imageUrl}
+              name={name}
+              types={types}
+              sizes={sizes}
+              price={price}
+              extras={extras}
+              onPopupClose={onPopupClose}
+            />
+          </Portal>
         )}
         <div
           onClick={onPopupDisplay}

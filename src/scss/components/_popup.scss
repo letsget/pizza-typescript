@@ -3,8 +3,12 @@
 .popup {
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .popup-content {
@@ -20,27 +24,6 @@
     margin: auto;
   }
 }
-
-// .popup {
-//   position: absolute;
-//   border: 1px solid black;
-//   z-index: 1000;
-//   background: rgb(252, 252, 252);
-//   left: 50%;
-//   transform: translate(-50%);
-// }
-
-// .popup-content {
-//   display: flex;
-//   width: 900px;
-//   position: relative;
-//   border-radius: 10px;
-
-//   & .button {
-//     width: 70%;
-//     margin: auto;
-//   }
-// }
 
 .pizza-image {
   display: flex;
@@ -68,11 +51,12 @@
 
 .close-popup {
   position: absolute;
-  right: -7px;
-  top: -11px;
+  right: -28px;
+  top: -29px;
   cursor: pointer;
   font-size: 20px;
-  color: #333;
+  color: $orange;
+  font-size: 25px;
 }
 
 .types {
@@ -103,7 +87,6 @@
 }
 
 .extras {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   margin: 15px 0;

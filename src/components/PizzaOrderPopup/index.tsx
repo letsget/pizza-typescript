@@ -42,62 +42,60 @@ const PizzaOrderPopup: FC<PizzaPopupProps> = ({
   };
 
   return (
-    <div className="popup">
-      <div className="popup-content">
-        <div className="pizza-image">
-          <img src={imageUrl} alt="" />
-        </div>
-        <div className="popup-right">
-          <span onClick={onPopupClose}>
-            <i className="fas fa-times close-popup" />
-          </span>
-          <h3>{name}</h3>
-          <ul className="types">
-            {types.map((doughType: string, index: number) => (
-              <li
-                className={classNames({
-                  active: doughType === activeType,
-                  type: doughType,
-                })}
-                onClick={() => onSelectType(doughType)}
-                key={index}
-              >
-                {doughType}
-              </li>
-            ))}
-          </ul>
-          <ul className="types">
-            {sizes.map((size: number, index: number) => (
-              <li
-                key={index}
-                onClick={() => onSelectSize(size, index)}
-                className={classNames({
-                  active: activeSize === size,
-                  type: size,
-                })}
-              >
-                {size} см.
-              </li>
-            ))}
-          </ul>
-          <ul className="extras">
-            {Object.entries(extras).map(([key, val]) => (
-              <li className="extra-option">
-                <div className="checkbox">
-                  <input type="checkbox" />
-                  <span className="name">{key}</span>
-                </div>
-                <div className="price">
-                  <span className="price">
-                    <span>{val} </span>
-                    <span className="ruble-sign">₽</span>
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="button">Добавить в корзину за 585 ₽</div>
-        </div>
+    <div className="popup-content">
+      <div className="pizza-image">
+        <img src={imageUrl} alt="" />
+      </div>
+      <div className="popup-right">
+        <span onClick={onPopupClose}>
+          <i className="fas fa-times close-popup" />
+        </span>
+        <h3>{name}</h3>
+        <ul className="types">
+          {types.map((doughType: string, index: number) => (
+            <li
+              className={classNames({
+                active: doughType === activeType,
+                type: doughType,
+              })}
+              onClick={() => onSelectType(doughType)}
+              key={index}
+            >
+              {doughType}
+            </li>
+          ))}
+        </ul>
+        <ul className="types">
+          {sizes.map((size: number, index: number) => (
+            <li
+              key={index}
+              onClick={() => onSelectSize(size, index)}
+              className={classNames({
+                active: activeSize === size,
+                type: size,
+              })}
+            >
+              {size} см.
+            </li>
+          ))}
+        </ul>
+        <ul className="extras">
+          {Object.entries(extras).map(([key, val]) => (
+            <li className="extra-option">
+              <div className="checkbox">
+                <input type="checkbox" />
+                <span className="name">{key}</span>
+              </div>
+              <div className="price">
+                <span className="price">
+                  <span>{val} </span>
+                  <span className="ruble-sign">₽</span>
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="button">Добавить в корзину за 585 ₽</div>
       </div>
     </div>
   );
