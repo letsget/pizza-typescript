@@ -18,33 +18,84 @@ const PizzaOrderPopup: FC<PizzaPopupProps> = ({
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[1]);
   const [finalPrice, setFinalPrice] = useState(price[1]);
-  const onSelectType = (type: string) => {
+
+  const options = Object.entries(extras).reduce((acc: any, [key, val]) => {
+    const obj = { name: key, price: val, selected: false };
+    return [...acc, obj];
+  }, []);
+
+  const [extraOptions, setExtraOptions] = useState(options);
+  const [priceForOptions, setPriceForOptions] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState<Array<String>>([]);
+
+  const calcExtrasPrice = (): void => {
+    let price = 0;
+    let selected = [];
+
+    for (const elem of extraOptions) {
+      if (elem.selected) {
+        price += elem.price;
+        selected.push(elem.name);
+      }
+    }
+    setPriceForOptions(price);
+    setSelectedOptions(selected);
+  };
+
+  const onSelectType = (type: string): void => {
     setActiveType(type);
   };
 
-  const onSelectSize = (size: number, index: number) => {
+  const onSelectSize = (size: number, index: number): void => {
     setActiveSize(size);
     setFinalPrice(price[index]);
   };
 
-  const onAdd = () => {
+  const onSelectExtras = (i: number): void => {
+    const copy = [...extraOptions];
+    copy[i].selected = !copy[i].selected;
+    setExtraOptions(copy);
+    calcExtrasPrice();
+  };
+
+  const onAdd = (): void => {
     const index = cart.findIndex(
       (item: PizzaInCartProps) =>
         item.name === name &&
         item.type === activeType &&
-        item.size === activeSize
+        item.size === activeSize &&
+        selectedOptions.length === 0
     );
     if (index >= 0) {
       dispatch(addExistingItem(index, finalPrice));
+      onPopupClose();
     } else {
-      dispatch(addToCart(activeType, activeSize, finalPrice, imageUrl, name));
+      dispatch(
+        addToCart(
+          activeType,
+          activeSize,
+          finalPrice + priceForOptions,
+          imageUrl,
+          name,
+          selectedOptions
+        )
+      );
+      onPopupClose();
     }
   };
 
   return (
     <div className="popup-content">
       <div className="pizza-image">
-        <img src={imageUrl} alt="" />
+        <img
+          className={classNames({
+            "popup-img-small": activeSize === sizes[0],
+            "popup-img-medium": activeSize === sizes[1],
+            "popup-img-large": activeSize === sizes[2],
+          })}
+          src={imageUrl}
+          alt=""
+        />
       </div>
       <div className="popup-right">
         <span onClick={onPopupClose}>
@@ -80,22 +131,28 @@ const PizzaOrderPopup: FC<PizzaPopupProps> = ({
           ))}
         </ul>
         <ul className="extras">
-          {Object.entries(extras).map(([key, val]) => (
-            <li className="extra-option">
+          {extraOptions.map((option: any, index: number) => (
+            <li key={index} className="extra-option">
               <div className="checkbox">
-                <input type="checkbox" />
-                <span className="name">{key}</span>
+                <input
+                  type="checkbox"
+                  checked={option.selected}
+                  onChange={() => onSelectExtras(index)}
+                />
+                <span className="name">{option.name}</span>
               </div>
               <div className="price">
                 <span className="price">
-                  <span>{val} </span>
+                  <span>{option.price} </span>
                   <span className="ruble-sign">₽</span>
                 </span>
               </div>
             </li>
           ))}
         </ul>
-        <div className="button">Добавить в корзину за 585 ₽</div>
+        <div onClick={onAdd} className="button">
+          Добавить в корзину за {finalPrice + priceForOptions} ₽
+        </div>
       </div>
     </div>
   );

@@ -41,4 +41,5 @@ export interface PizzaInCartProps {
   quantity: number;
   pizzaPrice: number;
   totalPrice: number;
+  options: any[];
 }

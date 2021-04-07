@@ -147,6 +147,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
                     quantity,
                     pizzaPrice,
                     totalPrice,
+                    options,
                   },
                   i
                 ) => (
@@ -160,6 +161,7 @@ const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
                     price={pizzaPrice}
                     total={totalPrice}
                     index={i}
+                    options={options}
                     onRemove={onRemove}
                     onIncrement={onIncrement}
                     onDecrement={onDecrement}

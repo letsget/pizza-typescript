@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import { PizzaProps, PizzaInCartProps } from "../../types";
+import { AppState } from "../reducers";
 
 export const getSortingOptions = ({ app }: any) => app.sortingOptions;
 

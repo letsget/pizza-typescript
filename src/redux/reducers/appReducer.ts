@@ -10,7 +10,7 @@ interface IActionTypes {
   payload: PizzaProps[] | string;
 }
 
-interface IInitialStateTypes {
+export interface IInitialStateTypes {
   pizzas: PizzaProps[];
   filters: {
     [key: string]: string;

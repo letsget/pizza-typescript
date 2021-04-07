@@ -34,9 +34,25 @@
   align-items: center;
   padding: 15 0px;
 
-  & img {
-    width: 200px;
+  & .popup-img-small {
+    width: 250px;
   }
+
+  & .popup-img-medium {
+    width: 300px;
+  }
+
+  & .popup-img-large {
+    width: 350px;
+  }
+}
+
+.image-medium {
+  width: 300px;
+}
+
+.image-large {
+  width: 400px;
 }
 
 .popup-right {

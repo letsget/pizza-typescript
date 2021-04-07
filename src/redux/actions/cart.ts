@@ -26,10 +26,11 @@ export const addToCart = (
   size: number,
   price: number,
   img: string,
-  name: string
+  name: string,
+  options: any[]
 ) => ({
   type: ADD_TO_CART,
-  payload: { type, size, price, img, name },
+  payload: { type, size, price, img, name, options },
 });
 
 export const addExistingItem = (index: number, price: number) => ({

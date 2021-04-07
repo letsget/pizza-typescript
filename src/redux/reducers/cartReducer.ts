@@ -43,6 +43,7 @@ const cartReducer = (state = initialState, { type, payload }: any) => {
           quantity: 1,
           pizzaPrice: payload.price,
           totalPrice: payload.price,
+          options: payload.options,
         }),
       };
     case ADD_EXISTING_ITEM:

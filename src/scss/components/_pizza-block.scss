@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 
 .pizza-block {
   width: 100%;
@@ -76,5 +76,22 @@
     font-size: 22px;
     line-height: 27px;
     letter-spacing: 0.015em;
+  }
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -25px;
+  margin-left: 30px;
+
+  & span {
+    padding-right: 3px;
+  }
+
+  & li {
+    padding-right: 6px;
+    letter-spacing: 0.015em;
+    color: #8d8d8d;
   }
 }
