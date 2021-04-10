@@ -77,8 +77,6 @@ const Main: FC<Props> = ({
     loadPizzasAsync(dispatch);
   }, []);
 
-  console.log("pizzas", pizzas);
-
   const onFilter = (name: string) => dispatch(setCurrentFilter(name));
 
   return (

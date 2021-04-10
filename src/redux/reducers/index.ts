@@ -1,15 +1,7 @@
 import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 import { cartReducer } from "./cartReducer";
 import { appReducer } from "./appReducer";
-
-const persistConfig = {
-  key: "cart",
-  storage,
-  whitelist: ["cart"],
-};
 
 const rootReducer = combineReducers({
   cart: cartReducer,
@@ -17,4 +9,4 @@ const rootReducer = combineReducers({
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
-export default persistReducer(persistConfig, rootReducer);
+export default rootReducer;

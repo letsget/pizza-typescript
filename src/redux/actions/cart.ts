@@ -8,13 +8,6 @@ export const GET_ORDER_PRICE = "GET_ORDER_PRICE";
 export const GET_ORDER_LENGTH = "GET_ORDER_LENGTH";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const CLEAR_CART = "CLEAR_CART";
-// id: Math.random(),
-// imageUrl: "none",
-// name: "test",
-// type: payload.activeType,
-// size: payload.activeSize,
-// quantity: payload.count,
-// pizzaPrice: payload.finalPrice,
 
 export const loadCartProducts = (cart: PizzaInCartProps[]) => ({
   type: LOAD_CART_PRODUCTS,

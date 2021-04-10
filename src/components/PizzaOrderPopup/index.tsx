@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { addToCart, addExistingItem } from "../../redux/actions/cart";
 import { PizzaInCartProps, PizzaPopupProps } from "../../types";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import classNames from "classnames";
 
 const PizzaOrderPopup: FC<PizzaPopupProps> = ({
@@ -18,6 +19,10 @@ const PizzaOrderPopup: FC<PizzaPopupProps> = ({
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[1]);
   const [finalPrice, setFinalPrice] = useState(price[1]);
+  const [persistCart, setPersistCart] = useLocalStorage<string>(
+    "cart",
+    "empty"
+  );
 
   const options = Object.entries(extras).reduce((acc: any, [key, val]) => {
     const obj = { name: key, price: val, selected: false };
