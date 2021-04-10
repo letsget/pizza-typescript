@@ -2,8 +2,6 @@ import { PizzaInCartProps } from "../../types";
 import {
   LOAD_CART_PRODUCTS,
   ADD_TO_CART,
-  GET_ORDER_PRICE,
-  GET_ORDER_LENGTH,
   REMOVE_FROM_CART,
   CLEAR_CART,
   ADD_EXISTING_ITEM,
@@ -12,15 +10,11 @@ import {
 } from "../actions/cart";
 
 interface IInitialStateTypes {
-  productsInCart: PizzaInCartProps[];
-  orderNumber: number;
-  orderPriceTotal: number;
+  productsInCart: any[];
 }
 
 const initialState: IInitialStateTypes = {
   productsInCart: [],
-  orderNumber: 0,
-  orderPriceTotal: 0,
 };
 
 const cartReducer = (state = initialState, { type, payload }: any) => {
@@ -74,18 +68,6 @@ const cartReducer = (state = initialState, { type, payload }: any) => {
       return {
         ...state,
         productsInCart: decremented,
-      };
-    case GET_ORDER_PRICE:
-      console.log("order price", payload);
-      return {
-        ...state,
-        orderPriceTotal: payload,
-      };
-    case GET_ORDER_LENGTH:
-      console.log("order length", payload);
-      return {
-        ...state,
-        orderNumber: payload,
       };
     case REMOVE_FROM_CART:
       const copy = [...state.productsInCart];

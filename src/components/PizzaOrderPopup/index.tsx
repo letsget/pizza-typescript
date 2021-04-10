@@ -19,10 +19,7 @@ const PizzaOrderPopup: FC<PizzaPopupProps> = ({
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[1]);
   const [finalPrice, setFinalPrice] = useState(price[1]);
-  const [persistCart, setPersistCart] = useLocalStorage<string>(
-    "cart",
-    "empty"
-  );
+  const [persistCart, setPersistCart] = useLocalStorage<string>("cart", cart);
 
   const options = Object.entries(extras).reduce((acc: any, [key, val]) => {
     const obj = { name: key, price: val, selected: false };
@@ -87,6 +84,7 @@ const PizzaOrderPopup: FC<PizzaPopupProps> = ({
       );
       onPopupClose();
     }
+    setPersistCart(cart);
   };
 
   return (

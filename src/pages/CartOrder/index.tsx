@@ -1,15 +1,14 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HeaderCart from "../../components/HeaderCart";
 import Logo from "../../components/Logo";
 import { connect, useDispatch } from "react-redux";
 import {
+  loadCartProducts,
   removeFromCart,
   clearCart,
   handleIncrement,
   handleDecrement,
-  getOrderPrice,
-  getOrderLength,
 } from "../../redux/actions/cart";
 import { PizzaInCartProps } from "../../types";
 import {
@@ -19,37 +18,46 @@ import {
 } from "../../redux/selectors";
 import CartItem from "../../components/CartItem";
 import CartTop from "../../components/CartTop";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 interface Props {
-  cart: PizzaInCartProps[];
+  cart: any[];
   orderNumber: number;
   orderPrice: number;
 }
 
 const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
   const dispatch = useDispatch();
+  const [storageCart, setStorageCart] = useLocalStorage("cart", cart);
 
-  const onRemove = useCallback(
-    () => (i: number) => {
-      dispatch(removeFromCart(i));
-      dispatch(getOrderPrice(orderPrice));
-      dispatch(getOrderLength(orderNumber));
-    },
-    [orderPrice, orderNumber, dispatch]
-  );
+  useEffect(() => {
+    if (cart.length === 0) {
+      if (window.localStorage.getItem("cart")) {
+        dispatch(loadCartProducts(storageCart));
+      }
+    }
+  }, []);
 
-  const onClear = () => dispatch(clearCart());
+  const onRemove = (i: number) => {
+    dispatch(removeFromCart(i));
+    setTimeout(() => {
+      setStorageCart(cart);
+    }, 0);
+  };
+
+  const onClear = () => {
+    dispatch(clearCart());
+    window.localStorage.removeItem("cart");
+  };
 
   const onIncrement = (i: number, price: number) => {
     dispatch(handleIncrement(i, price));
-    dispatch(getOrderPrice(orderPrice));
-    dispatch(getOrderLength(orderNumber));
+    setStorageCart(cart);
   };
 
   const onDecrement = (i: number, price: number) => {
     dispatch(handleDecrement(i, price));
-    dispatch(getOrderPrice(orderPrice));
-    dispatch(getOrderLength(orderNumber));
+    setStorageCart(cart);
   };
 
   return (

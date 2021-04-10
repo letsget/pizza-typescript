@@ -25,6 +25,7 @@ const useLocalStorage = <T>(key: string, initialValue: T) => {
         value instanceof Function ? value(storedValue) : value;
       // Save state
       setStoredValue(valueToStore);
+      console.log("сохраняем в локал-сторедж", valueToStore);
       // Save to local storage
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
@@ -33,7 +34,7 @@ const useLocalStorage = <T>(key: string, initialValue: T) => {
     }
   };
 
-  return [storedValue, setValue];
+  return [storedValue, setValue] as const;
 };
 
 export { useLocalStorage };

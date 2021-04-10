@@ -9,7 +9,7 @@ export const GET_ORDER_LENGTH = "GET_ORDER_LENGTH";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const CLEAR_CART = "CLEAR_CART";
 
-export const loadCartProducts = (cart: PizzaInCartProps[]) => ({
+export const loadCartProducts = (cart: any[]) => ({
   type: LOAD_CART_PRODUCTS,
   payload: cart,
 });
