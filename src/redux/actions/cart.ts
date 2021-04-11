@@ -1,5 +1,6 @@
 import { PizzaProps, PizzaInCartProps } from "../../types";
 export const LOAD_CART_PRODUCTS = "LOAD_CART_PRODUCTS";
+export const LOAD_CART_FROM_LOCAL_STORAGE = "LOAD_CART_FROM_LOCAL_STORAGE";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_EXISTING_ITEM = "ADD_EXISTING_ITEM";
 export const HANDLE_INCREMENT = "HANDLE_INCREMENT";
@@ -11,6 +12,11 @@ export const CLEAR_CART = "CLEAR_CART";
 
 export const loadCartProducts = (cart: any[]) => ({
   type: LOAD_CART_PRODUCTS,
+  payload: cart,
+});
+
+export const loadFromLocalStorage = (cart: any) => ({
+  type: LOAD_CART_FROM_LOCAL_STORAGE,
   payload: cart,
 });
 
@@ -59,3 +65,18 @@ export const removeFromCart = (index: number) => ({
 export const clearCart = () => ({
   type: CLEAR_CART,
 });
+
+export const loadFromLocalStorageAsync = async (
+  dispatch: Function
+): Promise<any> => {
+  try {
+    const serializedState = localStorage.getItem("cart2");
+    if (serializedState === null) {
+      return undefined;
+    }
+    const storedCart = JSON.parse(serializedState);
+    dispatch(loadFromLocalStorage(storedCart));
+  } catch (err) {
+    return undefined;
+  }
+};

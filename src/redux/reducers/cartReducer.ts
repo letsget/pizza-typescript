@@ -7,6 +7,7 @@ import {
   ADD_EXISTING_ITEM,
   HANDLE_INCREMENT,
   HANDLE_DECREMENT,
+  LOAD_CART_FROM_LOCAL_STORAGE,
 } from "../actions/cart";
 
 interface IInitialStateTypes {
@@ -20,7 +21,11 @@ const initialState: IInitialStateTypes = {
 const cartReducer = (state = initialState, { type, payload }: any) => {
   switch (type) {
     case LOAD_CART_PRODUCTS:
-      console.log("productts loading", payload);
+      return {
+        ...state,
+        productsInCart: payload,
+      };
+    case LOAD_CART_FROM_LOCAL_STORAGE:
       return {
         ...state,
         productsInCart: payload,

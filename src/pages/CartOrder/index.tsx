@@ -18,7 +18,6 @@ import {
 } from "../../redux/selectors";
 import CartItem from "../../components/CartItem";
 import CartTop from "../../components/CartTop";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 interface Props {
   cart: any[];
@@ -28,36 +27,22 @@ interface Props {
 
 const CartOrder: FC<Props> = ({ cart, orderNumber, orderPrice }) => {
   const dispatch = useDispatch();
-  const [storageCart, setStorageCart] = useLocalStorage("cart", cart);
-
-  useEffect(() => {
-    if (cart.length === 0) {
-      if (window.localStorage.getItem("cart")) {
-        dispatch(loadCartProducts(storageCart));
-      }
-    }
-  }, []);
 
   const onRemove = (i: number) => {
     dispatch(removeFromCart(i));
-    setTimeout(() => {
-      setStorageCart(cart);
-    }, 0);
   };
 
   const onClear = () => {
     dispatch(clearCart());
-    window.localStorage.removeItem("cart");
+    window.localStorage.removeItem("cart2");
   };
 
   const onIncrement = (i: number, price: number) => {
     dispatch(handleIncrement(i, price));
-    setStorageCart(cart);
   };
 
   const onDecrement = (i: number, price: number) => {
     dispatch(handleDecrement(i, price));
-    setStorageCart(cart);
   };
 
   return (

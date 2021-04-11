@@ -18,8 +18,6 @@ import {
 } from "../redux/selectors";
 import { useDispatch } from "react-redux";
 import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
-import { loadCartProducts } from "../redux/actions/cart";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import { connect } from "react-redux";
 
 /*
@@ -74,17 +72,9 @@ const Main: FC<Props> = ({
   orderPrice,
 }) => {
   const dispatch = useDispatch();
-  const [storedCart, setStoredCart] = useLocalStorage("cart", cart);
 
   useEffect(() => {
     loadPizzasAsync(dispatch);
-  }, []);
-
-  useEffect(() => {
-    if (!cart.length && window.localStorage.getItem("cart")) {
-      console.log("taken from useLocalStorageHook", storedCart);
-      dispatch(loadCartProducts(storedCart));
-    }
   }, []);
 
   const onFilter = (name: string) => dispatch(setCurrentFilter(name));
