@@ -20,33 +20,6 @@ import { useDispatch } from "react-redux";
 import { loadPizzasAsync, setCurrentFilter } from "../redux/actions/app";
 import { connect } from "react-redux";
 
-/*
-   Install and setup redux                                                 [✓]
-   load pizzas and put them in a redux state                               [✓]
-   Move filters to redux state                                             [✓]
-   Add setActiveFilter and active filter to redux state and actions        [✓]
-   add reselect to fetch the requird data from redux store                 [✓]
-   write selectors and reselect for filtering/sorting                      [✓]  
-   fix filtering options - create an object of filters in store            [✓]
-  
-   modify the json file to include object with prices based on types       [✓]
-
-   add Cart state to redux store and add actions to add items to cart      [✓]
-
-   use classNames library for generating classes dynamically
-  
-   Load products in cart when a user enters the cart page                  [✓]
-
-   add remove option                                                       [✓]
-
-   add clear cart option                                                   [✓]
-
-   use dynamic rendering and redirect user to empty cart page if there     [✓]
-   are no products in the cart
-
-   add increment/decrement products in cart property in cart               [✓]
-*/
-
 interface Props {
   pizzas: PizzaProps[];
   filter: string;
